@@ -1,0 +1,22 @@
+name: ${project.name}
+version: '0.8'
+author: Mywk
+website: https://github.com/Mywk/ChunkBlock
+main: net.mywk.ChunkBlock.ChunkBlock
+description: ${project.description}
+softdepend:
+commands:
+  cb:
+    description: Shows mod information.
+    usage: 'Usage: /<command> list'
+    aliases: [chunkblock]
+  chunkblock.list:
+        description: List the logged dupes in the flatfile.
+        
+permissions:
+    chunkblock.list:
+        description: List the logged dupes in the flatfile.
+        default: op
+    chunkblock.notify:
+        description: Allows player to receive a dupe notification.
+        default: op
