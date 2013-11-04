@@ -20,6 +20,8 @@ import net.mywk.ChunkBlock.KnownDupes;
 import net.mywk.ChunkBlock.config.Config;
 import net.mywk.util.BukkitUtils;
 
+
+// This method is temporary, pending re-write
 public class BlockPlaceLogging extends LoggingListener
 {
 	
