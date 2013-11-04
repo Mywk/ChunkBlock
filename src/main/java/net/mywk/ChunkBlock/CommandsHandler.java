@@ -50,7 +50,7 @@ public class CommandsHandler implements CommandExecutor
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.AQUA + "ChunkBlock v" + chunkblock.getDescription().getVersion() + " by Mywk");
 				if(sender.hasPermission("chunkblock.list"))
-					sender.sendMessage(ChatColor.AQUA + "/lb list - Shows dupe attempts in log file");
+					sender.sendMessage(ChatColor.AQUA + "/cb list - Shows dupe attempts in log file");
 			} else {
 				final String command = args[0].toLowerCase();
 				if (command.equals("list") && sender.hasPermission("chunkblock.list")) {
