@@ -41,7 +41,6 @@ public class ChunkBlock extends JavaPlugin
         private boolean errorLoading = false;
         private FlatLogger log = null;
         
-    	public boolean eatBlock;
 
         public static ChunkBlock getInstance() {
                 return chunkblock;

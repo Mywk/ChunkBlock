@@ -23,14 +23,12 @@ import net.mywk.util.BukkitUtils;
 
 public class BlockPlaceLogging extends LoggingListener
 {
-	private boolean eatBlock = false;
 	
 	  public BlockPlaceLogging(ChunkBlock cb)
 	  {
 	    super(cb);
-	    eatBlock = cb.eatBlock;
 	  }
-		
+
 	  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	  	public void onBlockPlace(BlockPlaceEvent event) {
 
@@ -51,10 +49,10 @@ public class BlockPlaceLogging extends LoggingListener
 	  			{
 	  				event.getPlayer().sendMessage(ChatColor.DARK_RED + "You are trying to perform an illegal action!");
 	  				
-  				    if(eatBlock)
+  				    if(Config.eatBlockOnDupe)
   				    {
-  				    	event.getPlayer().sendMessage(ChatColor.YELLOW + " Here, have a potato instead.");
-  				    	event.getPlayer().getInventory().setItemInHand(new ItemStack(Material.POTATO, 1));
+  				    	event.getPlayer().sendMessage(ChatColor.YELLOW + "Here, have a potato instead.");
+  				    	event.getPlayer().getInventory().setItemInHand(new ItemStack(Material.POTATO_ITEM, 1));
   				    }
   				    
 	  				    String msg = "Player " + playerName + " attempted to perform a dupe at " + (int)loc.getX() + ", " + (int)loc.getY() + ", " + (int)loc.getZ() + "!";
