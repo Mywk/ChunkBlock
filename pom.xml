@@ -42,9 +42,7 @@
 <groupId>org.bukkit</groupId>
 <artifactId>bukkit</artifactId>
 <version>1.5.2-R1.0</version>
-</dependency>
-
-<repositories>
+</dependency><repositories>
 		<repository>
 			<id>repobo-snap</id>
 			<url>http://repo.bukkit.org/content/groups/public</url>
