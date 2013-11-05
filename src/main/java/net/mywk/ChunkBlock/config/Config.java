@@ -19,6 +19,9 @@ public class Config
 {
 
 	public static boolean eatBlockOnDupe;
+	public static int forceWrenchPlaceId;
+	public static int conveyorBeltId;
+	public static int routerId;
 	public static SimpleDateFormat formatter;
 
 	public static void load(ChunkBlock chunkblock) throws DataFormatException, IOException {
@@ -27,6 +30,9 @@ public class Config
 		final ConfigurationSection config = chunkblock.getConfig();
 		final Map<String, Object> def = new HashMap<String, Object>();
 		def.put("eatBlockOnDupe", "true");
+		def.put("forceWrenchPlaceId", 6304);
+		def.put("conveyorBeltId", 3121);
+		def.put("routerId", 3131);
 		
 		for (final Entry<String, Object> e : def.entrySet())
 			if (!config.contains(e.getKey()))
@@ -34,5 +40,9 @@ public class Config
 		chunkblock.saveConfig();
 		
 		eatBlockOnDupe = config.getBoolean("eatBlockOnDupe", true);
+		forceWrenchPlaceId = config.getInt("forceWrenchPlaceId", 6304);
+		conveyorBeltId = config.getInt("conveyorBeltId", 3121);
+		routerId = config.getInt("routerId", 3131);
+
 	}
 }

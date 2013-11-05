@@ -4,7 +4,7 @@
 
     <groupId>net.mywk</groupId>
     <artifactId>chunkblock</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>1.0-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>ChunkBlock</name>
@@ -36,12 +36,12 @@
             </snapshotRepository>
         </distributionManagement>
  
-    <dependencies>
-       <dependency>
-        <groupId>org.bukkit</groupId>
-        <artifactId>bukkit</artifactId>
-        <version>1.5.2-R1.0</version>
-    </dependency>
+        <dependencies>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.5.2</version>
+        </dependency>
     </dependencies>
 
  

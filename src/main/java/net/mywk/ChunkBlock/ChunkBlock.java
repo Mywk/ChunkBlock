@@ -1,7 +1,7 @@
 package net.mywk.ChunkBlock;
 
 import net.mywk.ChunkBlock.config.Config;
-import net.mywk.ChunkBlock.listeners.BlockPlaceLogging;
+import net.mywk.ChunkBlock.listeners.InteractLogging;
 import net.mywk.util.BukkitUtils;
 
 import org.bukkit.Bukkit;
@@ -82,7 +82,7 @@ public class ChunkBlock extends JavaPlugin
                 cbCommandsHandler = new CommandsHandler(this);
                 getCommand("cb").setExecutor(cbCommandsHandler);
 
-                pm.registerEvents(new BlockPlaceLogging(this), this);
+                pm.registerEvents(new InteractLogging(this), this);
                 log = new FlatLogger();
         }
 

@@ -54,7 +54,7 @@ public class CommandsHandler implements CommandExecutor
 			} else {
 				final String command = args[0].toLowerCase();
 				if (command.equals("list") && sender.hasPermission("chunkblock.list")) {
-					FileInputStream fstream = new FileInputStream(ChunkBlock.getInstance().getDataFolder().getAbsolutePath()+"\\logs.txt");
+					FileInputStream fstream = new FileInputStream(ChunkBlock.getInstance().getDataFolder().getAbsolutePath()+"/logs.txt");
 					 Scanner s = new Scanner(fstream);
 				        while(s.hasNextLine()) {
 				          sender.sendMessage(s.nextLine());

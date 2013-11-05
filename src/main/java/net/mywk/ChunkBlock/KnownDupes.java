@@ -1,8 +1,10 @@
 package net.mywk.ChunkBlock;
 
 
+import net.mywk.ChunkBlock.config.Config;
 import net.mywk.util.Block;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -37,31 +40,63 @@ import static org.bukkit.Bukkit.getServer;
 
 public class KnownDupes
 {
-
-	BlockPlaceEvent event = null;
 	
-	public KnownDupes(BlockPlaceEvent e) {
-		event = e;
+	private PlayerInteractEvent event;
+	private org.bukkit.block.Block block;
+	
+	public KnownDupes(PlayerInteractEvent event, org.bukkit.block.Block block) {
+		this.event = event;
+		this.block = block;
 	}
 	
-	public boolean blockPlaceEvent(int id1, int id2, BlockFace face)
+	public boolean playerInteractEvent(org.bukkit.block.Block block)
 	{
-			final org.bukkit.block.Block block = event.getBlock();
-			final Material type = event.getBlock().getType();
+		final Material type = block.getType();
 
-		if(type.getId() == 3131)
+		// Router + Conveyour belts dupe blocker
+		if(type.getId() == Config.routerId)
 		{
-			if(net.mywk.util.BukkitUtils.foundBlockOnSide(event.getBlock(), 3121, BlockFace.UP))
+			if(net.mywk.util.BukkitUtils.foundBlockOnSide(block, Config.conveyorBeltId, BlockFace.UP)  || (event.getPlayer().getItemInHand().getTypeId() == Config.conveyorBeltId && event.getBlockFace() == BlockFace.UP))
 				return true;
 		}
-		else if(type.getId() == 3121)
+		else if(type.getId() == Config.conveyorBeltId)
 		{
-			if(net.mywk.util.BukkitUtils.foundBlockOnSide(event.getBlock(), 3131, BlockFace.DOWN))
+			if(net.mywk.util.BukkitUtils.foundBlockOnSide(block, Config.routerId, BlockFace.DOWN)  || (event.getPlayer().getItemInHand().getTypeId() == Config.routerId && event.getBlockFace() == BlockFace.DOWN))
 				return true;
 		}
 		
 		
 		return false;
 	}
+	
+	public void checkDupe(String method)
+	{
+			
+			event.getPlayer().sendMessage(ChatColor.DARK_RED + "You are trying to perform an illegal action!");
+				
+		    if(Config.eatBlockOnDupe)
+		    {
+		    	event.getPlayer().sendMessage(ChatColor.YELLOW + "Here, have a potato instead.");
+		    	event.getPlayer().getInventory().setItemInHand(new ItemStack(Material.POTATO_ITEM, 1));
+		    }
+	    
+	    	Location loc = event.getClickedBlock().getLocation();
+		    String msg = "Player " + event.getPlayer().getName() + " attempted to perform a dupe at " + (int)loc.getX() + ", " + (int)loc.getY() + ", " + (int)loc.getZ() + "!";
+		    Bukkit.broadcast(ChatColor.RED + msg, "chunkblock.notify");
+		    
+		    if(method.equals("event"))
+		    	event.setCancelled(true);
+		    else if(method.equals("forcePlace"))
+		    {
+				final Location where = block.getRelative(event.getBlockFace()).getLocation();
+            	if(where.getBlock().getType() != Material.AIR)
+            	{
+            		where.getBlock().setType(Material.AIR);
+            	}
+
+		    }
+		    
+		    ChunkBlock.getInstance().Log(msg);
+		}
 
 }
